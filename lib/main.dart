@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'screens/onboarding_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SafeKidsApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SafeKidsApp extends StatelessWidget {
+  const SafeKidsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+<<<<<<< HEAD
       title: 'Aplikasi Flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -184,4 +186,14 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+=======
+      title: 'SafeKids',
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      home: const OnboardingScreen(),
+    );
+  }
+>>>>>>> 9e0cd64acca060e1ce2e104f17698c2fa356d9c9
 }
