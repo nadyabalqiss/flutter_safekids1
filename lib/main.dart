@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'screens/onboarding_screen.dart';
 
 void main() {
   runApp(const SafeKidsApp());
 }
 
 class SafeKidsApp extends StatelessWidget {
-  const SafeKidsApp({super.key});
+  const SafeKidsApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
-      title: 'Aplikasi Flutter',
+      title: 'Flutter Dashboard',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -23,7 +21,7 @@ class SafeKidsApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -32,105 +30,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
 
+  final List<String> pageTitles = [
+    "Beranda",
+    "Notifikasi",
+    "Profil",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: Text(pageTitles[currentIndex]),
         centerTitle: true,
-        backgroundColor: Colors.blue.shade700,
-        elevation: 0,
+        backgroundColor: Colors.blue,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(25),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade700,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: const Column(
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: NetworkImage(
-                      "https://i.pravatar.cc/150?img=3",
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Selamat Datang",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Flutter Dashboard",
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
-                children: [
-                  buildMenu(Icons.person, "Profile"),
-                  buildMenu(Icons.book, "Informasi"),
-                  buildMenu(Icons.message, "Pesan"),
-                  buildMenu(Icons.settings, "Pengaturan"),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Informasi Terbaru",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Selamat datang di aplikasi Flutter. "
-                        "Silakan pilih menu yang tersedia untuk mulai menggunakan aplikasi.",
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-
+      body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         selectedItemColor: Colors.blue,
@@ -157,6 +71,136 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildBody() {
+    switch (currentIndex) {
+      case 0:
+        return _homePage();
+      case 1:
+        return const Center(
+          child: Text(
+            "Belum ada notifikasi",
+            style: TextStyle(fontSize: 18),
+          ),
+        );
+      case 2:
+        return const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                child: Icon(Icons.person, size: 50),
+              ),
+              SizedBox(height: 15),
+              Text(
+                "Profil Pengguna",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
+      default:
+        return const SizedBox();
+    }
+  }
+
+  Widget _homePage() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(25),
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: const Column(
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  child: Icon(
+                    Icons.person,
+                    size: 40,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Selamat Datang",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "Flutter Dashboard",
+                  style: TextStyle(
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              children: [
+                buildMenu(Icons.person, "Profile"),
+                buildMenu(Icons.book, "Informasi"),
+                buildMenu(Icons.message, "Pesan"),
+                buildMenu(Icons.settings, "Pengaturan"),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text(
+                      "Informasi Terbaru",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Selamat datang di aplikasi Flutter. Silakan pilih menu yang tersedia untuk mulai menggunakan aplikasi.",
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildMenu(IconData icon, String title) {
     return Card(
       elevation: 4,
@@ -165,7 +209,13 @@ class _HomePageState extends State<HomePage> {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () {},
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Menu $title dipilih"),
+            ),
+          );
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -186,14 +236,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-=======
-      title: 'SafeKids',
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: const OnboardingScreen(),
-    );
-  }
->>>>>>> 9e0cd64acca060e1ce2e104f17698c2fa356d9c9
 }
